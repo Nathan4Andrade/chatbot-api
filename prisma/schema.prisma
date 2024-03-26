@@ -1,0 +1,86 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique @db.VarChar(255)
+  password  String    @db.VarChar(255)
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  Session   Session[]
+  BotInfo   BotInfo?
+}
+
+model Session {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  User      User     @relation(fields: [userId], references: [id])
+  token     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BotInfo {
+  id             Int      @id @default(autoincrement())
+  userId         Int      @unique
+  User           User     @relation(fields: [userId], references: [id])
+  companyName    String
+  number         String
+  queues         Queue[]
+  weekdays       String[]
+  weekend        String[]
+  daysOfWeek     Int[]
+  weekendDays    Int[]
+  dayOffMessages String[]
+  menus          Menu[]
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+model Queue {
+  id        Int      @id @default(autoincrement())
+  queueId   Int
+  name      String
+  botInfoId Int
+  BotInfo   BotInfo  @relation(fields: [botInfoId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Menu {
+  id              Int      @id @default(autoincrement())
+  menuId          Int
+  intro           String
+  transferMessage String
+  botInfoId       Int
+  BotInfo         BotInfo  @relation(fields: [botInfoId], references: [id])
+  options         Option[]
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model Option {
+  id              Int      @id @default(autoincrement())
+  optionId        Int
+  name            String
+  menuId          Int
+  Menu            Menu     @relation(fields: [menuId], references: [id])
+  action          String
+  userIdTransfer  Int?
+  queueIdTransfer Int?
+  menuIdTransfer  Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}

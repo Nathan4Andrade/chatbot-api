@@ -1,0 +1,101 @@
+{
+    "id": 1,
+    "companyName": "Fale Fácil",
+    "number": "552435123601",
+    "defaultQueue": {
+      "id": 10,
+      "name": "Suporte"
+    },
+    "queues": [
+      {
+        "id": 10,
+        "name": "Suporte"
+      },
+      {
+        "id": 2,
+        "name": "Financeiro"
+      }
+    ],
+    "openingHours": {
+      "weekdays": ["08:00", "18:00"],
+      "weekend": ["08:00", "12:00"],
+      "daysOfWeek": [1, 2, 3, 4, 5],
+      "weekendDays": [6],
+      "dayOffMessages": [
+        "Obrigado por entrar em contato com a Fale Fácil. Nosso horário de atendimento é de segunda a sexta, das 08:00 às 18:00 e aos sábados das 08:00 ao 12:00.",
+        "Fora destes horários, nossa equipe de suporte atende em regime de plantão. por favor, descreva sua necessidade e lhe responderemos em assim que possível."
+      ]
+    },
+    "menus": [
+      {
+        "id": 1,
+        "intro": "[b]Olá! Seja bem-vindo ao atendimento da Fale Fácil[/b].[br][br]Por favor, escolha uma das opções abaixo:",
+        "transferMessage": "Aguarde um momento, estamos transferindo para um atendente",
+        "options": [
+          {
+            "id": 1,
+            "name": "Falar com a equipe de vendas",
+            "action": "transferToUser",
+            "userId": 1,
+            "queueId": null,
+            "menuId": null
+          },
+          {
+            "id": 2,
+            "name": "Falar com o suporte",
+            "action": "openMenu",
+            "userId": null,
+            "queueId": null,
+            "menuId": 2
+          },
+          {
+            "id": 3,
+            "name": "Falar com o financeiro",
+            "action": "transferToQueue",
+            "userId": null,
+            "queueId": 2,
+            "menuId": null
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "intro": "[b]Qual o motivo da sua necessidade de suporte[/b][br]",
+        "options": [
+          {
+            "id": 1,
+            "name": "Contratei o serviço e não consigo usar",
+            "action": "transferToQueue",
+            "userId": null,
+            "queueId": 10,
+            "menuId": null
+          },
+          {
+            "id": 2,
+            "name": "Preciso configurar o meu Bitrix24",
+            "action": "transferToQueue",
+            "userId": null,
+            "queueId": 10,
+            "menuId": null
+          },
+          {
+            "id": 3,
+            "name": "Não consigo receber ligações",
+            "action": "transferToQueue",
+            "userId": null,
+            "queueId": 10,
+            "menuId": null
+          },
+          {
+            "id": 9,
+            "name": "Voltar ao menu principal",
+            "action": "openMenu",
+            "userId": null,
+            "queueId": null,
+            "menuId": 1
+          }
+        ]
+      }
+    ]
+  }
+  
